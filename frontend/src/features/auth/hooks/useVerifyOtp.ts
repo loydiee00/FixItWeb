@@ -1,6 +1,6 @@
 // src/features/auth/hooks/useVerifyOtp.ts
 import { useState } from 'react';
-import { authService } from '../services/auth.service';
+import { authService } from '../services/authService';
 import type{ VerifyOtpRequest, ButtonState } from '../types';
 
 export const useVerifyOtp = () => {

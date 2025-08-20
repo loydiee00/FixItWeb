@@ -20,7 +20,6 @@ from django.http import HttpResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('auth/', include('authentication.urls')),
+    path('api/auth/', include('authentication.urls')),
     path("", lambda request: HttpResponse("Hello, backend is running!")),
-
 ]

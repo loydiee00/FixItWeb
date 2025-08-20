@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { authService } from '../services/auth.service';
+import { authService } from '../services/authService';
 import type{ ForgotPasswordRequest, ButtonState } from '../types';
 
 export const useForgotPassword = () => {

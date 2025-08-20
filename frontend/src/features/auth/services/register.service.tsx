@@ -5,7 +5,7 @@ class RegisterService {
 
   async register(credentials: RegisterCredentials): Promise<RegisterResponse> {
     try {
-      const response = await fetch(`${this.baseUrl}/auth/register/`, {
+      const response = await fetch(`${this.baseUrl}/api/auth/register/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

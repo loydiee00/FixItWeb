@@ -3,11 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Mail, RefreshCw, CheckCircle, AlertCircle, KeyRound } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useVerifyOtp } from '../hooks/useVerifyOtp';
+import { authService } from '../services/authService';
 import type { Variants } from 'framer-motion';
 
 interface VerifyOtpProps {
   email: string;
-  onSuccess: () => void;
+  onSuccess: (verifiedCode: string) => void;
   onBack: () => void;
   onResendOtp: () => void;
 }
@@ -21,6 +22,7 @@ export const VerifyOtp: React.FC<VerifyOtpProps> = ({
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
   const [timer, setTimer] = useState(60);
   const [canResend, setCanResend] = useState(false);
+  const [verifiedCode, setVerifiedCode] = useState<string>('');
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const { buttonState, error, verifyOtp, resetState } = useVerifyOtp();
 
@@ -39,10 +41,10 @@ export const VerifyOtp: React.FC<VerifyOtpProps> = ({
   }, []);
 
   useEffect(() => {
-    if (buttonState === 'success') {
-      setTimeout(() => onSuccess(), 1500);
+    if (buttonState === 'success' && verifiedCode) {
+      setTimeout(() => onSuccess(verifiedCode), 1500);
     }
-  }, [buttonState, onSuccess]);
+  }, [buttonState, onSuccess, verifiedCode]);
 
   const handleInputChange = (index: number, value: string) => {
     if (value.length > 1) return;
@@ -69,16 +71,27 @@ export const VerifyOtp: React.FC<VerifyOtpProps> = ({
   const handleVerifyOtp = async (otpCode?: string) => {
     const code = otpCode || otp.join('');
     if (code.length === 6) {
-      await verifyOtp(email, code);
+      const result = await verifyOtp({ email, otp: code });
+      if (result.success) {
+        setVerifiedCode(code);
+      }
     }
   };
 
-  const handleResend = () => {
+  const handleResend = async () => {
     if (canResend) {
       setTimer(60);
       setCanResend(false);
       setOtp(['', '', '', '', '', '']);
       resetState();
+      
+      // Actually resend the OTP by calling the forgot password API again
+      try {
+        await authService.forgotPassword({ email });
+      } catch (error) {
+        console.error('Failed to resend OTP:', error);
+      }
+      
       onResendOtp();
       inputRefs.current[0]?.focus();
     }

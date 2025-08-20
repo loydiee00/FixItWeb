@@ -12,10 +12,13 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -26,7 +29,7 @@ SECRET_KEY = 'django-insecure-k)&djm)%0*tlg&6tgffjr4%*dkd_1-t+jz@#t$te==f(+tpoqp
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
 
 
 # Application definition
@@ -54,8 +57,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-MIDDLEWARE.insert(1, 'corsheaders.middleware.CorsMiddleware')
 
 ROOT_URLCONF = 'webproject.urls'
 
@@ -149,6 +150,27 @@ SIMPLE_JWT = {
     'BLACKLIST_AFTER_ROTATION': True,
 }
 
+# Email Configuration for Password Reset
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+# For security, replace these with your actual Gmail credentials
+# Recommended: Use environment variables or a .env file
+EMAIL_HOST_USER = 'joso.co.up@phinmaed.com'  # Replace with your Gmail address
+EMAIL_HOST_PASSWORD = 'ynod gtgq tmdq rata'  # Replace with your Gmail App Password (16 chars)
+DEFAULT_FROM_EMAIL = 'joso.co.up@phinmaed.com'  # Replace with your Gmail address
+
+# Alternative: Use environment variables (recommended for production)
+# EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'joso.co.up@phinmaed.com')
+# EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'ynod gtgq tmdq rata')
+# DEFAULT_FROM_EMAIL = os.environ.get('DEFAULT_FROM_EMAIL', 'joso.co.up@phinmaed.com')
+
+# Password Reset Settings
+PASSWORD_RESET_TIMEOUT = 3600  # 1 hour in seconds
+OTP_EXPIRY_TIME = 600  # 10 minutes in seconds
+
 # CORS Configuration
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
@@ -157,5 +179,3 @@ CORS_ALLOWED_ORIGINS = [
     "http://127.0.0.1:5173",
 ]
 CORS_ALLOW_CREDENTIALS = True
-
-ALLOWED_HOSTS += ['localhost', '127.0.0.1']

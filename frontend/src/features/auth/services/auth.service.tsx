@@ -8,7 +8,7 @@ class AuthService {
 
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
     try {
-      const response = await fetch(`${this.baseUrl}/auth/login/`, {
+      const response = await fetch(`${this.baseUrl}/api/auth/login/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -46,7 +46,7 @@ class AuthService {
 
   async register(credentials: { email: string; password: string; username?: string }): Promise<{ message: string }> {
     try {
-      const response = await fetch(`${this.baseUrl}/auth/register/`, {
+      const response = await fetch(`${this.baseUrl}/api/auth/register/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ class AuthService {
       const refreshToken = this.getRefreshToken();
       
       if (token && refreshToken) {
-        await fetch(`${this.baseUrl}/auth/logout/`, {
+        await fetch(`${this.baseUrl}/api/auth/logout/`, {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
@@ -104,7 +104,7 @@ class AuthService {
     }
 
     try {
-      const response = await fetch(`${this.baseUrl}/auth/refresh/`, {
+      const response = await fetch(`${this.baseUrl}/api/auth/refresh/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -151,6 +151,98 @@ class AuthService {
     localStorage.removeItem('refreshToken');
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('refreshToken');
+  }
+
+  // Password Reset Methods
+  async forgotPassword(data: { email: string }): Promise<{ success: boolean; message: string }> {
+    try {
+      const response = await fetch(`${this.baseUrl}/api/auth/forgot-password/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: data.email }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to send reset code');
+      }
+
+      return {
+        success: true,
+        message: result.message || 'Reset code sent to your email',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : 'Failed to send reset code',
+      };
+    }
+  }
+
+  async verifyOtp(data: { email: string; otp: string }): Promise<{ success: boolean; message: string }> {
+    try {
+      const response = await fetch(`${this.baseUrl}/api/auth/verify-reset-code/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          email: data.email, 
+          code: data.otp 
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Invalid or expired code');
+      }
+
+      return {
+        success: true,
+        message: result.message || 'Code verified successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : 'Failed to verify code',
+      };
+    }
+  }
+
+  async resetPassword(email: string, code: string, newPassword: string): Promise<{ success: boolean; message: string }> {
+    try {
+      const response = await fetch(`${this.baseUrl}/api/auth/reset-password/`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+          email, 
+          code, 
+          password: newPassword 
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to reset password');
+      }
+
+      return {
+        success: true,
+        message: result.message || 'Password reset successfully',
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message: error instanceof Error ? error.message : 'Failed to reset password',
+      };
+    }
   }
 }
 
