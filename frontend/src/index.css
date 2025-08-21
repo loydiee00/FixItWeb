@@ -3,7 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -54,7 +53,7 @@ a {
   text-decoration: underline;
   text-underline-offset: 4px; /* spacing between text and underline */
   margin: 0 4px;
-  color: lab(80% 0.01 -0.01);
+  color: lab(0% 0 0);
   font-weight: 500;
 }
 

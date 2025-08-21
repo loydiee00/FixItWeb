@@ -14,8 +14,8 @@ class RegisterService {
           email: credentials.email,
           username: credentials.username,
           password: credentials.password,
-          // Note: Django backend doesn't currently handle first_name, last_name, password_confirm
-          // but we're sending them in case you want to extend the backend later
+          first_name: credentials.firstName || '',
+          last_name: credentials.lastName || '',
         }),
       });
 

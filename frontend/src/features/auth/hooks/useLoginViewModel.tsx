@@ -28,12 +28,12 @@ export const useLoginViewModel = () => {
     const isEmailValid = emailRegex.test(formData.email);
     
     return (
-      isEmailValid && // Add this line
+      isEmailValid &&
       formData.password.trim() !== '' &&
-      status !== 'loading' &&
-      Object.keys(validationErrors).length === 0
+      status !== 'loading'
+      // Removed the validationErrors check as it was preventing resubmission after fixing errors
     );
-  }, [formData, validationErrors, status]);
+  }, [formData, status]);
 
   const updateField = useCallback((field: keyof LoginFormData, value: string | boolean) => {
     setFormData(prev => ({
@@ -41,15 +41,16 @@ export const useLoginViewModel = () => {
       [field]: value,
     }));
 
-    // Clear validation error for this field
-    if (validationErrors[field as keyof ValidationErrors]) {
-      setValidationErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[field as keyof ValidationErrors];
-        return newErrors;
-      });
+    // Clear validation errors when user starts typing
+    if (Object.keys(validationErrors).length > 0) {
+      setValidationErrors({});
     }
-  }, [validationErrors]);
+    
+    // Reset status from error state when user starts typing
+    if (status === 'error') {
+      setStatus('idle');
+    }
+  }, [validationErrors, status]);
 
   const validateForm = useCallback(() => {
     const errors = validateLoginForm(formData);

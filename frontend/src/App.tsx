@@ -6,12 +6,12 @@ import { AuthProvider } from '@/features/auth/context/AuthContext';
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import LoginPage from '@/pages/admin/Login';
 import RegisterPage from '@/pages/admin/RegisterPage';
-import DashboardPages from '@/pages/admin/DashboardPage';
 import { useAuth } from '@/features/auth/context/AuthContext';
 import { ForgotPasswordPage } from '@/pages/admin/ForgotPasswordPage';
 import { VerifyOtp } from '@/features/auth/components/VerifyOtp';
 import PrivacyPolicy from './pages/admin/legal/PrivacyPolicy';
 import TermsOfService from './pages/admin/legal/TermsOfServices';
+import Dashboard from './pages/admin/dashboard/Page';
 
 // Component to handle authenticated redirects for login
 const AuthenticatedRedirect: React.FC = () => {
@@ -40,6 +40,7 @@ const AppRoutes: React.FC = () => {
   return (
     <Routes>
       {/* Public routes */}
+      <Route path="/db" element={<Dashboard/>}/>
       <Route path="/login" element={<AuthenticatedRedirect />} />
       <Route path="/register" element={<RegisterRedirect />} />
       <Route path="/ToS" element={<TermsOfService/>}/>
@@ -65,7 +66,7 @@ const AppRoutes: React.FC = () => {
         path="/dashboard" 
         element={
           <ProtectedRoute>
-            <DashboardPages />
+            <Dashboard />
           </ProtectedRoute>
         } 
       />
