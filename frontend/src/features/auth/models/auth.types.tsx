@@ -5,11 +5,13 @@ export interface LoginCredentials {
   }
   
   export interface AuthUser {
-    id: string;
-    email: string;
-    name: string;
-    avatar?: string;
-    role: string;
+  id: string;
+  email: string;
+  name: string;
+  firstName?: string;
+  lastName?: string;
+  avatar?: string;
+  role: string;
   }
   
   export interface AuthResponse {

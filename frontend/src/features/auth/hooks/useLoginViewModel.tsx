@@ -31,7 +31,6 @@ export const useLoginViewModel = () => {
       isEmailValid &&
       formData.password.trim() !== '' &&
       status !== 'loading'
-      // Removed the validationErrors check as it was preventing resubmission after fixing errors
     );
   }, [formData, status]);
 

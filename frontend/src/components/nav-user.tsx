@@ -35,16 +35,24 @@ export function NavUser() {
   const { isMobile } = useSidebar()
   const { user, logout } = useAuth()
 
-  const generateInitials = (name: string): string => {
-    if (!name) return "?";
-    
-    const nameParts = name.trim().split(" ");
-    if (nameParts.length === 1) {
-      return nameParts[0].charAt(0).toUpperCase();
+  const generateInitials = (firstName?: string, lastName?: string, fallbackName?: string): string => {
+    // Use firstName and lastName if both are available
+    if (firstName && lastName) {
+      return (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
     }
-    const firstName = nameParts[0];
-    const lastName = nameParts[nameParts.length - 1];
-    return (firstName.charAt(0) + lastName.charAt(0)).toUpperCase();
+    
+    // Fall back to parsing the full name
+    if (fallbackName) {
+      const nameParts = fallbackName.trim().split(" ");
+      if (nameParts.length === 1) {
+        return nameParts[0].charAt(0).toUpperCase();
+      }
+      const firstPart = nameParts[0];
+      const lastPart = nameParts[nameParts.length - 1];
+      return (firstPart.charAt(0) + lastPart.charAt(0)).toUpperCase();
+    }
+    
+    return "?";
   };
 
   const handleLogout = async () => {
@@ -82,7 +90,7 @@ export function NavUser() {
               <Avatar className="h-8 w-8 rounded-lg">
                 <AvatarImage src={user.avatar} alt={user.name} />
                 <AvatarFallback className="rounded-lg">
-                  {generateInitials(user.name)}
+                  {generateInitials(user.firstName, user.lastName, user.name)}
                 </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
@@ -103,7 +111,7 @@ export function NavUser() {
                 <Avatar className="h-8 w-8 rounded-lg">
                   <AvatarImage src={user.avatar} alt={user.name} />
                   <AvatarFallback className="rounded-lg">
-                    {generateInitials(user.name)}
+                    {generateInitials(user.firstName, user.lastName, user.name)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">

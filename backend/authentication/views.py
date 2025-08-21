@@ -65,7 +65,9 @@ class LoginView(APIView):
         
         if user is not None:
             refresh = RefreshToken.for_user(user)
-            full_name = f"{user.first_name}{user.last_name}".strip()
+            # Create full name from first_name and last_name
+            full_name = f"{user.first_name} {user.last_name}".strip()
+            # If no first_name or last_name, fall back to username
             if not full_name:
                 full_name = user.username
                 
@@ -74,6 +76,8 @@ class LoginView(APIView):
                     'id': str(user.id),
                     'email': user.email,
                     'name': full_name,
+                    'firstName': user.first_name,
+                    'lastName': user.last_name,
                     'role': 'user'  # You can customize this based on your user model
                 },
                 'accessToken': str(refresh.access_token),
