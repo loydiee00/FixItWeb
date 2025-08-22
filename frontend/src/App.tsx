@@ -12,7 +12,6 @@ import { VerifyOtp } from '@/features/auth/components/VerifyOtp';
 import PrivacyPolicy from './pages/admin/legal/PrivacyPolicy';
 import TermsOfService from './pages/admin/legal/TermsOfServices';
 import Dashboard from './pages/admin/dashboard/Page';
-
 // Component to handle authenticated redirects for login
 const AuthenticatedRedirect: React.FC = () => {
   const { isAuthenticated } = useAuth();
@@ -45,8 +44,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/register" element={<RegisterRedirect />} />
       <Route path="/ToS" element={<TermsOfService/>}/>
       <Route path="/Privacy-policy" element={<PrivacyPolicy/>}/>
-      <Route path='/forgot-password'element=
-      {<ForgotPasswordPage/>}/>
+      <Route path='/forgot-password' element={<ForgotPasswordPage/>}/>
       {/* Protected routes */}
       <Route
         path="/verify-otp"

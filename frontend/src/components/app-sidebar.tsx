@@ -1,4 +1,5 @@
 import * as React from "react"
+import { Link } from "react-router-dom"
 import {
   BookOpen,
   Bot,
@@ -9,7 +10,7 @@ import {
   PieChart,
   Send,
   Settings2,
-  SquareTerminal,
+  CircleGauge ,
 } from "lucide-react"
 
 import { NavMain } from "@/components/nav-main"
@@ -29,9 +30,9 @@ import {
 const data = {
   navMain: [
     {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
+      title: "Dashboard",
+      url: "db",
+      icon: CircleGauge ,
       isActive: true,
       items: [
         {
@@ -117,12 +118,12 @@ const data = {
   navSecondary: [
     {
       title: "Support",
-      url: "#",
+      url: "support",
       icon: LifeBuoy,
     },
     {
       title: "Feedback",
-      url: "#",
+      url: "feedback",
       icon: Send,
     },
   ],
@@ -145,14 +146,14 @@ const data = {
   ],
 }
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({ onSectionChange, ...props }: React.ComponentProps<typeof Sidebar> & { onSectionChange?: (section: string) => void }) {
   return (
     <Sidebar variant="inset" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <a href="#">
+              <Link to="/db">
                 <div className="bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
                   <Command className="size-4" />
                 </div>
@@ -160,7 +161,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <span className="truncate font-medium">FixIT Inc</span>
                   <span className="truncate text-xs">Upang</span>
                 </div>
-              </a>
+              </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
@@ -168,7 +169,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarContent>
         <NavMain items={data.navMain} />
         <NavProjects projects={data.projects} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
+        <NavSecondary items={data.navSecondary} onSectionChange={onSectionChange} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser />
