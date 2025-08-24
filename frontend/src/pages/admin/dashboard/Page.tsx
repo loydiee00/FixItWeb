@@ -17,6 +17,7 @@ import {
 import { SupportForm } from "@/features/support/components/SupportForm"
 import { FeedbackForm } from "@/features/support/components/FeedbackForm"
 import { SectionCards } from "@/components/section-cards"
+import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 
 export default function Page() {
   const [activeSection, setActiveSection] = useState('dashboard')
@@ -100,8 +101,7 @@ export default function Page() {
                 </div>
               </div>
             </div>
-            
-            <div className="bg-muted/50 min-h-[40vh] flex-1 rounded-xl md:min-h-min" />
+            <ChartAreaInteractive />
           </div>
         )
     }

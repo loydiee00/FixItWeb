@@ -24,9 +24,11 @@ Select.displayName = "Select";
 // For compatibility with existing code
 const SelectValue = ({ placeholder }: { placeholder?: string }) => null;
 const SelectTrigger = Select;
-const SelectContent = ({ children }: { children: React.ReactNode }) => <>{children}</>;
-const SelectItem = ({ value, children }: { value: string; children: React.ReactNode }) => (
-  <option value={value}>{children}</option>
+const SelectContent = ({ children, className }: { children: React.ReactNode; className?: string }) => (
+  <>{children}</>
+);
+const SelectItem = ({ value, className, children }: { value: string; className?: string; children: React.ReactNode }) => (
+  <option value={value} className={className}>{children}</option>
 );
 
 export { Select, SelectValue, SelectTrigger, SelectContent, SelectItem };
