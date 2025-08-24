@@ -69,24 +69,24 @@ const data = {
       ],
     },
     {
-      title: "Documentation",
+      title: "Issues",
       url: "#",
       icon: BookOpen,
       items: [
         {
-          title: "Introduction",
+          title: "All Issues",
           url: "#",
         },
         {
-          title: "Get Started",
+          title: "Open / In Progress",
           url: "#",
         },
         {
-          title: "Tutorials",
+          title: "Resolved / Closed",
           url: "#",
         },
         {
-          title: "Changelog",
+          title: "Manual Submission",
           url: "#",
         },
       ],
@@ -139,7 +139,7 @@ const data = {
       icon: PieChart,
     },
     {
-      name: "Travel",
+      name: "Facilities",
       url: "#",
       icon: Map,
     },
