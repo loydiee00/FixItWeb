@@ -1,8 +1,32 @@
+# Final Project - Josh
 
-# Final_proj
-web project 
-=======
-# React + TypeScript + Vite
+Full-stack web application with Django backend and React frontend.
+
+## Quick Start
+
+### Backend
+```bash
+cd backend
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
+```
+
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+## Deployment
+
+- Frontend: Deployed on Netlify
+- Backend: Deploy on Railway, Heroku, or DigitalOcean
+
+## Environment Variables
+
+Copy `.env.example` files and update with your values.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
