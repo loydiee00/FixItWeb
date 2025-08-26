@@ -17,11 +17,17 @@ pids
 node_modules/
 jspm_packages/
 
-# Build outputs
-dist/
-dist-ssr/
-build/
-*.local
+# Frontend build outputs
+frontend/dist/
+frontend/dist-ssr/
+frontend/build/
+frontend/.vite/
+frontend/.turbo/
+
+# Backend build outputs
+backend/staticfiles/
+backend/media/
+backend/collected-static/
 
 # Environment files
 .env
@@ -31,10 +37,19 @@ build/
 .env.production.local
 backend/.env
 frontend/.env
+.env.*
+!.env.example
+
+# Database files
+*.sqlite3
+*.db
+db.sqlite3
+backend/db.sqlite3
 
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .idea/
 .DS_Store
 *.suo
@@ -54,15 +69,16 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+.venv/
+backend/.venv/
+backend/venv/
 
 # Django specific
-*.sqlite3
-db.sqlite3
-media/
-staticfiles/
-local_settings.py
+backend/local_settings.py
+backend/migrations/__pycache__/
+backend/*/migrations/__pycache__/
 
-# Development and test files
+# Development and test files that shouldn't be in production
 debug_*.py
 test_*.py
 check_*.py
@@ -71,23 +87,19 @@ update_*.py
 *_test.py
 *_debug.py
 
-# Documentation that shouldn't be in repo
-*.md
-!README.md
-!CONTRIBUTING.md
-!LICENSE.md
-
 # Temporary files
 *.tmp
 *.temp
 *.cache
 .cache/
+frontend/.cache/
 
 # OS generated files
 Thumbs.db
 ehthumbs.db
 Desktop.ini
 $RECYCLE.BIN/
+.DS_Store
 
 # Coverage reports
 htmlcov/
@@ -109,5 +121,27 @@ coverage.xml
 *.swo
 *~
 
-# Netlify
+# Deployment
 .netlify/
+.vercel/
+
+# Package manager lock files (choose one approach)
+# Uncomment the next line if you want to ignore lock files
+# package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+
+# Local development files
+.local
+*.local
+
+# Compiled TypeScript
+frontend/dist/
+frontend/build/
+*.tsbuildinfo
+
+# ESLint cache
+.eslintcache
+
+# Stylelint cache
+.stylelintcache
