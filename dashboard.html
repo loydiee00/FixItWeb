@@ -121,6 +121,8 @@
     </div>
   </div>
 
+  <div></div>
+
   <!-- Pie Chart Script -->
   <script>
     const ctx = document.getElementById('reportsPieChart').getContext('2d');
@@ -153,5 +155,47 @@
       }
     });
   </script>
+   
+  <!-- ✅ Reports Over Time Card -->
+<div class="card-2">
+  <h3>Reports Over Time</h3>
+  <div class="chart-container" style="height:300px;">
+    <canvas id="reportsOverTimeChart"></canvas>
+  </div>
+</div>
+
+<!-- Bar Chart Script -->
+<script>
+  const ctxBar = document.getElementById('reportsOverTimeChart').getContext('2d');
+  const reportsOverTimeChart = new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+      datasets: [{
+        label: 'Reports',
+        data: [50, 30, 40, 60, 10, 55, 65],
+        backgroundColor: '#2E7D32'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 10
+          }
+        }
+      },
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
+    }
+  });
+</script>
+
 </body>
 </html>

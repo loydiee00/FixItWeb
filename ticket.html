@@ -3,17 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="style.css">
   <title>FixIt Ticket</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Kantumruy Pro', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      display: flex;
+    }
 
-    <script src="https://code.iconify.design/iconify-icon/1.0.8/iconify-icon.min.js"></script>
-  
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 20px 40px;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .table-container {
+      width: 100%;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      background: #fff;
+    }
+
+    thead {
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      padding: 12px 10px;
+      color: #444;
+      font-weight: 600;
+    }
+
+    td {
+      padding: 12px 10px;
+      border-bottom: 1px solid #eee;
+      vertical-align: middle;
+    }
+
+    .user-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .user-cell img.avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .status {
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .status.pending {
+      background: #fef3c7;
+      color: #b45309;
+    }
+
+    select.agent-select {
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      font-size: 13px;
+      background: #f9f9f9;
+    }
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+    }
+  </style>
 </head>
 <body>
+  <!-- Sidebar -->
   <div class="sidebar">
     <h2>Fix It</h2>
     <a href="dashboard.html"><iconify-icon icon="mdi:home-variant-outline"></iconify-icon>Dashboard</a>
@@ -23,10 +105,73 @@
     <a href="maintenance.html"><iconify-icon icon="mdi:phone-in-talk-outline"></iconify-icon>Maintenance</a>
   </div>
 
+  <!-- Main Content -->
   <div class="main-content">
     <h1>Tickets</h1>
-  </div>
 
-  
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>User</th>
+            <th>Subject</th>
+            <th>Agent</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td class="user-cell">
+              <img src="https://i.pravatar.cc/40" alt="User" class="avatar">
+              <span>Floyd Miles</span>
+            </td>
+            <td>Broken Chair</td>
+            <td>
+              <select class="agent-select">
+                <option>Not Assigned</option>
+                <option>Agent 1</option>
+                <option>Agent 2</option>
+                <option>Agent 3</option>
+              </select>
+            </td>
+            <td><span class="status pending">Pending</span></td>
+            <td>08/25/2025</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td class="user-cell">
+              <img src="https://i.pravatar.cc/40?u=2" alt="User" class="avatar">
+              <span>Floyd Miles</span>
+            </td>
+            <td>Broken Chair</td>
+            <td>
+              <select class="agent-select">
+                <option>Not Assigned</option>
+                <option>Agent 1</option>
+                <option>Agent 2</option>
+                <option>Agent 3</option>
+              </select>
+            </td>
+            <td><span class="status pending">Pending</span></td>
+            <td>08/25/2025</td>
+          </tr>
+          <tr>
+            <td><input type="checkbox"></td>
+            <td class="user-cell">
+              <img src="https://i.pravatar.cc/40?u=3" alt="User" class="avatar">
+              <span>Floyd Miles</span>
+            </td>
+            <td>Broken Chair</td>
+            <td>Not Assigned</td>
+            <td><span class="status pending">Pending</span></td>
+            <td>08/25/2025</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
 </html>
